@@ -54,8 +54,39 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public void updateStudent(RequestStudentDto dto) {
+    public ResponseStudentDto updateStudent(RequestStudentDto dto,String id) {
+        Optional<Student> optionalStudent = studentRepo.findById(id);
+        if (optionalStudent.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
 
+        Student student = optionalStudent.get();
+        student.setNameWithInitials(dto.getNameWithInitials());
+        student.setFullName(dto.getFullName());
+        student.setDob(dto.getDob());
+        student.setNic(dto.getNic());
+        student.setEmail(dto.getEmail());
+        student.setAddress(dto.getAddress());
+        student.setWhatsAppNumber(dto.getWhatsAppNumber());
+        student.setRegisteredDate(dto.getRegisteredDate());
+        student.setParentName(dto.getParentName());
+        student.setParentNumber(dto.getParentNumber());
+
+        student = studentRepo.save(student);
+
+        return new ResponseStudentDto(
+                student.getStudentId(),
+                student.getNameWithInitials(),
+                student.getFullName(),
+                student.getDob(),
+                student.getNic(),
+                student.getEmail(),
+                student.getAddress(),
+                student.getWhatsAppNumber(),
+                student.getRegisteredDate(),
+                student.getParentName(),
+                student.getParentNumber()
+        );
     }
 
     @Override

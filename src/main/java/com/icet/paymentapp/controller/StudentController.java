@@ -32,9 +32,9 @@ public class StudentController {
         return "delete-student";
     }
 
-    @PutMapping
-    public String updateStudent(@RequestBody RequestStudentDto dto){
-        return "update-student";
+    @PutMapping(params = "id")
+    public ResponseStudentDto updateStudent(@RequestBody RequestStudentDto dto,String id){
+        return studentService.updateStudent(dto,id);
     }
 
     @GetMapping(value = "/list",params = {"page","size"})

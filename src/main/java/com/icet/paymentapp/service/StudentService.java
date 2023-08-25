@@ -7,7 +7,7 @@ import com.icet.paymentapp.dto.response.ResponseStudentDto;
 
 public interface StudentService {
     ResponseStudentDto saveStudent(RequestStudentDto dto, String id);
-    void updateStudent(RequestStudentDto dto);
+    ResponseStudentDto updateStudent(RequestStudentDto dto,String id);
     void deleteStudent(String studentId);
     ResponseStudentDto findStudent(String studentId);
     PaginatedResponseStudentDto findAllStudents(int page, int size);
