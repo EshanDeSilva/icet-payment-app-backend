@@ -7,6 +7,7 @@ import com.icet.paymentapp.entity.Student;
 import com.icet.paymentapp.repo.StudentRepo;
 import com.icet.paymentapp.service.StudentService;
 import com.icet.paymentapp.util.IdManager;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -91,7 +92,11 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public void deleteStudent(String studentId) {
-
+        try {
+            studentRepo.deleteById(studentId);
+        }catch (EmptyResultDataAccessException ex){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
     }
 
     @Override

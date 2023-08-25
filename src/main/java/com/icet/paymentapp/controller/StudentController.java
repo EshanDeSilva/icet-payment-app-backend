@@ -29,6 +29,7 @@ public class StudentController {
 
     @DeleteMapping(params = "id") //api/v1/students/delete?id=ICM1060001
     public String deleteStudent(@RequestParam String id){
+        studentService.deleteStudent(id);
         return "delete-student";
     }
 
