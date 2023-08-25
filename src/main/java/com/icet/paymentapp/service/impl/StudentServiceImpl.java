@@ -8,10 +8,14 @@ import com.icet.paymentapp.repo.StudentRepo;
 import com.icet.paymentapp.service.StudentService;
 import com.icet.paymentapp.util.IdManager;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -122,7 +126,25 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public PaginatedResponseStudentDto findAllStudents(int page, int size) {
-        return null;
+        long count = studentRepo.count();
+        Page<Student> all = studentRepo.findAll(PageRequest.of(page, size));
+        List<ResponseStudentDto> list = new ArrayList<>();
+        for (Student student:all) {
+            list.add(new ResponseStudentDto(
+                    student.getStudentId(),
+                    student.getNameWithInitials(),
+                    student.getFullName(),
+                    student.getDob(),
+                    student.getNic(),
+                    student.getEmail(),
+                    student.getAddress(),
+                    student.getWhatsAppNumber(),
+                    student.getRegisteredDate(),
+                    student.getParentName(),
+                    student.getParentNumber()
+            ));
+        }
+        return new PaginatedResponseStudentDto(count,list);
     }
 
     @Override

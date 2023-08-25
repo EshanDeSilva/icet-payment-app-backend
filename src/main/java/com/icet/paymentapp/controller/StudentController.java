@@ -1,5 +1,6 @@
 package com.icet.paymentapp.controller;
 
+import com.icet.paymentapp.dto.paginate.PaginatedResponseStudentDto;
 import com.icet.paymentapp.dto.request.RequestStudentDto;
 import com.icet.paymentapp.dto.response.ResponseStudentDto;
 import com.icet.paymentapp.service.StudentService;
@@ -39,8 +40,8 @@ public class StudentController {
     }
 
     @GetMapping(value = "/list",params = {"page","size"})
-    public String findAllStudent(@RequestParam int page,@RequestParam int size){
-        return "all-students";
+    public PaginatedResponseStudentDto findAllStudent(@RequestParam int page, @RequestParam int size){
+        return studentService.findAllStudents(page,size);
     }
 
     @GetMapping(params = {"course","batch"})
