@@ -1,7 +1,6 @@
 package com.icet.paymentapp.controller;
 
 import com.icet.paymentapp.dto.request.RequestStudentDto;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
