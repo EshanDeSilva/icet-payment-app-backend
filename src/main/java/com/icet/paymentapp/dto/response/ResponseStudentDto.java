@@ -1,19 +1,22 @@
-package com.icet.paymentapp.dto.request;
+package com.icet.paymentapp.dto.response;
 
-import lombok.Data;
+import lombok.*;
 
 import java.util.Date;
 
-@Data
-public class RequestStudentDto {
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
+public class ResponseStudentDto {
+    private String studentId;
     private String nameWithInitials;
     private String fullName;
     private Date dob;
     private String nic;
     private String email;
     private String address;
-    private String registerCourse;
-    private String registerBatch;
     private String whatsAppNumber;
     private Date RegisteredDate;
     private String parentName;
