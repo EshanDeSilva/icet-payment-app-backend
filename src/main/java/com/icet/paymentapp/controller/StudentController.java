@@ -12,7 +12,7 @@ public class StudentController {
 
         return dto.toString();
     }
-    @GetMapping("{/id}") //api/v1/students/ICM1060001
+    @GetMapping("/{id}") //api/v1/students/ICM1060001
     public String findStudent(@PathVariable String id){
         return "find-student";
     }
