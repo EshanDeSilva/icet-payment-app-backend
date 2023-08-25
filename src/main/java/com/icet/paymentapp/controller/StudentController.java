@@ -2,7 +2,6 @@ package com.icet.paymentapp.controller;
 
 import com.icet.paymentapp.dto.request.RequestStudentDto;
 import com.icet.paymentapp.dto.response.ResponseStudentDto;
-import com.icet.paymentapp.entity.Student;
 import com.icet.paymentapp.service.StudentService;
 import org.springframework.web.bind.annotation.*;
 
