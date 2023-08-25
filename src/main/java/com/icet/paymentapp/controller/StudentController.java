@@ -5,6 +5,8 @@ import com.icet.paymentapp.dto.response.ResponseStudentDto;
 import com.icet.paymentapp.service.StudentService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("api/v1/students")
 public class StudentController {
@@ -17,23 +19,24 @@ public class StudentController {
 
     @PostMapping
     public ResponseStudentDto saveStudent(@RequestBody RequestStudentDto dto){
-        ResponseStudentDto resStudent = studentService.saveStudent(dto, generatedId(dto.getRegisterCourse(), dto.getRegisterBatch()));
-        return resStudent;
+        return studentService.saveStudent(dto, generatedId(dto.getRegisterCourse(), dto.getRegisterBatch()));
     }
 
-    @GetMapping("/{id}") //api/v1/students/ICM1060001
-    public String findStudent(@PathVariable String id){
-        studentService.findStudent(id);
-        return "find-student";
+    @GetMapping(params = "id") //api/v1/students/ICM1060001
+    public ResponseStudentDto findStudent(@PathVariable String id){
+        return studentService.findStudent(id);
     }
+
     @DeleteMapping(params = "id") //api/v1/students/delete?id=ICM1060001
     public String deleteStudent(@RequestParam String id){
         return "delete-student";
     }
+
     @PutMapping
     public String updateStudent(@RequestBody RequestStudentDto dto){
         return "update-student";
     }
+
     @GetMapping(value = "/list",params = {"page","size"})
     public String findAllStudent(@RequestParam int page,@RequestParam int size){
         return "all-students";

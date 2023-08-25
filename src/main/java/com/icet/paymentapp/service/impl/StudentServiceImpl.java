@@ -7,7 +7,11 @@ import com.icet.paymentapp.entity.Student;
 import com.icet.paymentapp.repo.StudentRepo;
 import com.icet.paymentapp.service.StudentService;
 import com.icet.paymentapp.util.IdManager;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.Optional;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -61,7 +65,23 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public ResponseStudentDto findStudent(String studentId) {
-        return null;
+        Optional<Student> student = studentRepo.findById(studentId);
+        if (student.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseStudentDto(
+                student.get().getStudentId(),
+                student.get().getNameWithInitials(),
+                student.get().getFullName(),
+                student.get().getDob(),
+                student.get().getNic(),
+                student.get().getEmail(),
+                student.get().getAddress(),
+                student.get().getWhatsAppNumber(),
+                student.get().getRegisteredDate(),
+                student.get().getParentName(),
+                student.get().getParentNumber()
+        );
     }
 
     @Override
