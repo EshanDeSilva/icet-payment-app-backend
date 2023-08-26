@@ -2,17 +2,17 @@ package com.icet.paymentapp.entity;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @ToString
+@Table(name = "student")
 public class Student {
     @Id
     private String studentId;
@@ -26,7 +26,7 @@ public class Student {
     @Column(nullable = false)
     private Date dob;
 
-    @Column(length = 100)
+    @Column(unique = true,length = 100)
     private String nic;
 
     @Column(nullable = false, length = 150)
@@ -39,7 +39,7 @@ public class Student {
     private String whatsAppNumber;
 
     @Column(nullable = false)
-    private Date RegisteredDate;
+    private Date registeredDate;
 
     @Column(nullable = false, length = 150)
     private String parentName;
@@ -47,4 +47,20 @@ public class Student {
     @Column(nullable = false, length = 100)
     private String parentNumber;
 
+    @OneToMany(mappedBy = "student",cascade = CascadeType.ALL)
+    private List<Payment> payments = new ArrayList<>();
+
+    public Student(String studentId, String nameWithInitials, String fullName, Date dob, String nic, String email, String address, String whatsAppNumber, Date registeredDate, String parentName, String parentNumber) {
+        this.studentId = studentId;
+        this.nameWithInitials = nameWithInitials;
+        this.fullName = fullName;
+        this.dob = dob;
+        this.nic = nic;
+        this.email = email;
+        this.address = address;
+        this.whatsAppNumber = whatsAppNumber;
+        this.registeredDate = registeredDate;
+        this.parentName = parentName;
+        this.parentNumber = parentNumber;
+    }
 }

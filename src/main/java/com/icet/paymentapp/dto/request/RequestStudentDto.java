@@ -1,10 +1,15 @@
 package com.icet.paymentapp.dto.request;
 
-import lombok.Data;
+import lombok.*;
 
 import java.util.Date;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
+@ToString
 public class RequestStudentDto {
     private String nameWithInitials;
     private String fullName;
@@ -18,4 +23,5 @@ public class RequestStudentDto {
     private Date RegisteredDate;
     private String parentName;
     private String parentNumber;
+
 }

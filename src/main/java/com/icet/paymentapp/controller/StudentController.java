@@ -7,6 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
+
 @RestController
 @RequestMapping("api/v1/students")
 public class StudentController {
@@ -21,7 +24,8 @@ public class StudentController {
     public ResponseEntity<StandardResponseEntity> saveStudent(@RequestBody RequestStudentDto dto){
         return new ResponseEntity<>(
                 new StandardResponseEntity(201, "Student Saved", studentService.saveStudent(dto, generatedId(dto.getRegisterCourse(), dto.getRegisterBatch()).getBody().getData().toString())),
-                HttpStatus.CREATED);
+                HttpStatus.CREATED
+        );
     }
 
     @GetMapping(value = "find",params = "id") //api/v1/students/ICM1060001
@@ -35,8 +39,8 @@ public class StudentController {
     public ResponseEntity<StandardResponseEntity> deleteStudent(@RequestParam String id){
         studentService.deleteStudent(id);
         return new ResponseEntity<>(
-                new StandardResponseEntity(204, "Student Deleted", null),
-                HttpStatus.NO_CONTENT);
+                new StandardResponseEntity(202, "Student Deleted", null),
+                HttpStatus.ACCEPTED);
     }
 
     @PutMapping(value = "/update",params = "id")
