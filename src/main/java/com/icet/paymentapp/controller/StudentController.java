@@ -4,6 +4,9 @@ import com.icet.paymentapp.dto.paginate.PaginatedResponseStudentDto;
 import com.icet.paymentapp.dto.request.RequestStudentDto;
 import com.icet.paymentapp.dto.response.ResponseStudentDto;
 import com.icet.paymentapp.service.StudentService;
+import com.icet.paymentapp.util.StandardResponseEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,39 +20,53 @@ public class StudentController {
     }
 
     @PostMapping(value = "/save")
-    public ResponseStudentDto saveStudent(@RequestBody RequestStudentDto dto){
-        return studentService.saveStudent(dto, generatedId(dto.getRegisterCourse(), dto.getRegisterBatch()));
+    public ResponseEntity<StandardResponseEntity> saveStudent(@RequestBody RequestStudentDto dto){
+        return new ResponseEntity<>(
+                new StandardResponseEntity(201, "Student Saved", studentService.saveStudent(dto, generatedId(dto.getRegisterCourse(), dto.getRegisterBatch()).getBody().getData().toString())),
+                HttpStatus.CREATED);
     }
 
     @GetMapping(value = "find",params = "id") //api/v1/students/ICM1060001
-    public ResponseStudentDto findStudent(@PathVariable String id){
-        return studentService.findStudent(id);
+    public ResponseEntity<StandardResponseEntity> findStudent(@PathVariable String id){
+        return new ResponseEntity<>(
+                new StandardResponseEntity(200, "Student Data", studentService.findStudent(id)),
+                HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/delete",params = "id") //api/v1/students/delete?id=ICM1060001
-    public String deleteStudent(@RequestParam String id){
+    public ResponseEntity<StandardResponseEntity> deleteStudent(@RequestParam String id){
         studentService.deleteStudent(id);
-        return "delete-student";
+        return new ResponseEntity<>(
+                new StandardResponseEntity(204, "Student Deleted", null),
+                HttpStatus.NO_CONTENT);
     }
 
     @PutMapping(value = "/update",params = "id")
-    public ResponseStudentDto updateStudent(@RequestBody RequestStudentDto dto,String id){
-        return studentService.updateStudent(dto,id);
+    public ResponseEntity<StandardResponseEntity> updateStudent(@RequestBody RequestStudentDto dto,String id){
+        return new ResponseEntity<>(
+                new StandardResponseEntity(201, "Student Updated", studentService.updateStudent(dto, id)),
+                HttpStatus.CREATED);
     }
 
     @GetMapping(value = "/list",params = {"page","size"})
-    public PaginatedResponseStudentDto findAllStudent(@RequestParam int page, @RequestParam int size){
-        return studentService.findAllStudents(page,size);
+    public ResponseEntity<StandardResponseEntity> findAllStudent(@RequestParam int page, @RequestParam int size){
+        return new ResponseEntity<>(
+                new StandardResponseEntity(200, "Students List", studentService.findAllStudents(page, size)),
+                HttpStatus.OK);
     }
 
     @GetMapping(value = "/search",params = {"page","size","text"})
-    public PaginatedResponseStudentDto searchStudent(@RequestParam int page, @RequestParam int size,@RequestParam String text){
-        return studentService.searchStudent(page,size,text);
+    public ResponseEntity<StandardResponseEntity> searchStudent(@RequestParam int page, @RequestParam int size,@RequestParam String text){
+        return new ResponseEntity<>(
+                new StandardResponseEntity(200, "Search Students", studentService.searchStudent(page, size, text)),
+                HttpStatus.OK);
     }
 
     @GetMapping(value = "/getId",params = {"course","batch"})
-    public String generatedId(String course,String batch){
-        return studentService.generateId(course+batch,studentService.getLastId(course+batch));
+    public ResponseEntity<StandardResponseEntity> generatedId(String course,String batch){
+        return new ResponseEntity<>(
+                new StandardResponseEntity(200, "Student ID", studentService.generateId(course+batch,studentService.getLastId(course+batch))),
+                HttpStatus.OK);
     }
 
 }
