@@ -1,8 +1,6 @@
 package com.icet.paymentapp.controller;
 
-import com.icet.paymentapp.dto.paginate.PaginatedResponseStudentDto;
 import com.icet.paymentapp.dto.request.RequestStudentDto;
-import com.icet.paymentapp.dto.response.ResponseStudentDto;
 import com.icet.paymentapp.service.StudentService;
 import com.icet.paymentapp.util.StandardResponseEntity;
 import org.springframework.http.HttpStatus;
