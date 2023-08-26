@@ -156,4 +156,52 @@ public class StudentServiceImpl implements StudentService {
     public String generateId(String courseAndBatch, String lastId) {
         return idManager.generate(courseAndBatch,lastId);
     }
+
+    @Override
+    public PaginatedResponseStudentDto searchByStudentId(int page, int size, String id) {
+        Page<Student> all = studentRepo.findStudentsByStudentIdStartsWith(id, PageRequest.of(page, size));
+        long count = studentRepo.findStudentsByStudentIdStartsWith(id).stream().count();
+        List<ResponseStudentDto> list = new ArrayList<>();
+
+        for (Student student:all) {
+            list.add(new ResponseStudentDto(
+                    student.getStudentId(),
+                    student.getNameWithInitials(),
+                    student.getFullName(),
+                    student.getDob(),
+                    student.getNic(),
+                    student.getEmail(),
+                    student.getAddress(),
+                    student.getWhatsAppNumber(),
+                    student.getRegisteredDate(),
+                    student.getParentName(),
+                    student.getParentNumber()
+            ));
+        }
+        return new PaginatedResponseStudentDto(count,list);
+    }
+
+    @Override
+    public PaginatedResponseStudentDto searchByStudentName(int page, int size, String name) {
+        Page<Student> all = studentRepo.findStudentsByFullNameContaining(name, PageRequest.of(page, size));
+        long count = studentRepo.findStudentsByFullNameContaining(name).stream().count();
+        List<ResponseStudentDto> list = new ArrayList<>();
+
+        for (Student student:all) {
+            list.add(new ResponseStudentDto(
+                    student.getStudentId(),
+                    student.getNameWithInitials(),
+                    student.getFullName(),
+                    student.getDob(),
+                    student.getNic(),
+                    student.getEmail(),
+                    student.getAddress(),
+                    student.getWhatsAppNumber(),
+                    student.getRegisteredDate(),
+                    student.getParentName(),
+                    student.getParentNumber()
+            ));
+        }
+        return new PaginatedResponseStudentDto(count,list);
+    }
 }
