@@ -154,7 +154,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public String generateId(String courseAndBatch, String lastId) {
-        return idManager.generate(courseAndBatch,lastId);
+        return idManager.generateStudentId(courseAndBatch,lastId);
     }
 
     @Override
