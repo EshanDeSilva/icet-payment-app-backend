@@ -160,7 +160,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public PaginatedResponseStudentDto searchByStudentId(int page, int size, String id) {
         Page<Student> all = studentRepo.findStudentsByStudentIdStartsWith(id, PageRequest.of(page, size));
-        long count = studentRepo.findStudentsByStudentIdStartsWith(id).stream().count();
+        long count = studentRepo.findCountOfStudentsByStudentIdStartsWith(id);
         List<ResponseStudentDto> list = new ArrayList<>();
 
         for (Student student:all) {
@@ -184,7 +184,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public PaginatedResponseStudentDto searchByStudentName(int page, int size, String name) {
         Page<Student> all = studentRepo.findStudentsByFullNameContaining(name, PageRequest.of(page, size));
-        long count = studentRepo.findStudentsByFullNameContaining(name).stream().count();
+        long count = studentRepo.findCountOfStudentsByFullNameContaining(name);
         List<ResponseStudentDto> list = new ArrayList<>();
 
         for (Student student:all) {
