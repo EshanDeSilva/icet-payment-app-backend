@@ -13,7 +13,6 @@ public interface StudentService {
     PaginatedResponseStudentDto findAllStudents(int page, int size);
     String getLastId(String course);
     String generateId(String course, String lastId);
-    PaginatedResponseStudentDto searchByStudentId(int page, int size, String text);
-    PaginatedResponseStudentDto searchByStudentName(int page, int size, String name);
+    PaginatedResponseStudentDto searchStudent(int page, int size, String text);
     //search
 }

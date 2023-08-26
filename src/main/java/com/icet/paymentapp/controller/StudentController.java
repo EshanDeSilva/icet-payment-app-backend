@@ -42,14 +42,9 @@ public class StudentController {
         return studentService.findAllStudents(page,size);
     }
 
-    @GetMapping(value = "/searchId",params = {"page","size","id"})
-    public PaginatedResponseStudentDto searchByStudentId(@RequestParam int page, @RequestParam int size,@RequestParam String id){
-        return studentService.searchByStudentId(page,size,id);
-    }
-
-    @GetMapping(value = "/searchName",params = {"page","size","name"})
-    public PaginatedResponseStudentDto searchByStudentName(@RequestParam int page, @RequestParam int size,@RequestParam String name){
-        return studentService.searchByStudentName(page,size,name);
+    @GetMapping(value = "/search",params = {"page","size","text"})
+    public PaginatedResponseStudentDto searchStudent(@RequestParam int page, @RequestParam int size,@RequestParam String text){
+        return studentService.searchStudent(page,size,text);
     }
 
     @GetMapping(value = "/getId",params = {"course","batch"})

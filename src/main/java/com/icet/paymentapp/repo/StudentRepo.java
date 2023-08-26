@@ -14,11 +14,8 @@ import java.util.List;
 @EnableJpaRepositories
 public interface StudentRepo extends JpaRepository<Student,String> {
     Student findTopByStudentIdStartsWithOrderByStudentIdDesc(String prefix);
-    Page<Student> findStudentsByStudentIdStartsWith(String text,PageRequest pageRequest);
-    @Query(value = "SELECT COUNT(student_id) FROM student",nativeQuery = true)
-    long findCountOfStudentsByStudentIdStartsWith(String text);
-    Page<Student> findStudentsByFullNameContaining(String name, PageRequest pageRequest);
-    @Query(value = "SELECT COUNT(full_name) FROM student",nativeQuery = true)
-    long findCountOfStudentsByFullNameContaining(String name);
-    //Page<Student> findStudentsByStudentNameStartsWith(String name, PageRequest of);
+    @Query(value = "SELECT * FROM student WHERE student_id LIKE %?1% OR full_name LIKE %?1%",nativeQuery = true)
+    Page<Student> searchStudentsByText(String text,PageRequest pageRequest);
+    @Query(value = "SELECT COUNT(student_id) FROM student WHERE student_id LIKE %?1% OR full_name LIKE %?1%",nativeQuery = true)
+    long searchCountOfStudentsByText(String text);
 }

@@ -158,33 +158,9 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public PaginatedResponseStudentDto searchByStudentId(int page, int size, String id) {
-        Page<Student> all = studentRepo.findStudentsByStudentIdStartsWith(id, PageRequest.of(page, size));
-        long count = studentRepo.findCountOfStudentsByStudentIdStartsWith(id);
-        List<ResponseStudentDto> list = new ArrayList<>();
-
-        for (Student student:all) {
-            list.add(new ResponseStudentDto(
-                    student.getStudentId(),
-                    student.getNameWithInitials(),
-                    student.getFullName(),
-                    student.getDob(),
-                    student.getNic(),
-                    student.getEmail(),
-                    student.getAddress(),
-                    student.getWhatsAppNumber(),
-                    student.getRegisteredDate(),
-                    student.getParentName(),
-                    student.getParentNumber()
-            ));
-        }
-        return new PaginatedResponseStudentDto(count,list);
-    }
-
-    @Override
-    public PaginatedResponseStudentDto searchByStudentName(int page, int size, String name) {
-        Page<Student> all = studentRepo.findStudentsByFullNameContaining(name, PageRequest.of(page, size));
-        long count = studentRepo.findCountOfStudentsByFullNameContaining(name);
+    public PaginatedResponseStudentDto searchStudent(int page, int size, String text) {
+        Page<Student> all = studentRepo.searchStudentsByText(text, PageRequest.of(page, size));
+        long count = studentRepo.searchCountOfStudentsByText(text);
         List<ResponseStudentDto> list = new ArrayList<>();
 
         for (Student student:all) {
