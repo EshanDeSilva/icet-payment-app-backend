@@ -14,8 +14,10 @@ import java.util.Date;
 @ToString
 @Table(name = "payment")
 public class Payment {
-    @EmbeddedId
-    private PaymentKey paymentKey;
+    /*@EmbeddedId
+    private PaymentKey paymentKey;*/
+    @Id
+    private String paymentId;
     private Date date;
     private double Amount;
     private PaymentType paymentType;

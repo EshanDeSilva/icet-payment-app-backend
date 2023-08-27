@@ -7,4 +7,7 @@ public interface PaymentService {
     ResponsePaymentDto savePayment(RequestPaymentDto dto, String id);
     String generateId(String studentId, String lastId);
     String getLastId();
+    void deletePayment(String paymentId);
+
+    ResponsePaymentDto findPayment(String paymentId);
 }

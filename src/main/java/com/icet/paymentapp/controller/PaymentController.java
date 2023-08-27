@@ -5,10 +5,7 @@ import com.icet.paymentapp.service.PaymentService;
 import com.icet.paymentapp.util.StandardResponseEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/v1/payments")
@@ -25,6 +22,23 @@ public class PaymentController {
         return new ResponseEntity<>(
                 new StandardResponseEntity(201,"Payment saved", paymentService.savePayment(dto, generatedId(dto.getStudentId()))),
                 HttpStatus.CREATED
+        );
+    }
+
+    @DeleteMapping(value = "/delete",params = "id")
+    public ResponseEntity<StandardResponseEntity> deletePayment(@RequestParam String id){
+        paymentService.deletePayment(id);
+        return new ResponseEntity<>(
+                new StandardResponseEntity(202,"Payment Deleted",null),
+                HttpStatus.ACCEPTED
+        );
+    }
+
+    @GetMapping(value = "/find",params = "id")
+    public ResponseEntity<StandardResponseEntity> findPayment(String id){
+        return new ResponseEntity<>(
+                new StandardResponseEntity(200,"Payment Data",paymentService.findPayment(id)),
+                HttpStatus.OK
         );
     }
 

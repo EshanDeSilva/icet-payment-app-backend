@@ -7,6 +7,8 @@ import com.icet.paymentapp.entity.Student;
 import com.icet.paymentapp.repo.StudentRepo;
 import com.icet.paymentapp.service.StudentService;
 import com.icet.paymentapp.util.IdManager;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -30,32 +33,36 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public ResponseStudentDto saveStudent(RequestStudentDto dto,String id) {
-        Student student = studentRepo.save(new Student(
-                id,
-                dto.getNameWithInitials(),
-                dto.getFullName(),
-                dto.getDob(),
-                dto.getNic(),
-                dto.getEmail(),
-                dto.getAddress(),
-                dto.getWhatsAppNumber(),
-                dto.getRegisteredDate(),
-                dto.getParentName(),
-                dto.getParentNumber()
-        ));
-        return new ResponseStudentDto(
-                student.getStudentId(),
-                student.getNameWithInitials(),
-                student.getFullName(),
-                student.getDob(),
-                student.getNic(),
-                student.getEmail(),
-                student.getAddress(),
-                student.getWhatsAppNumber(),
-                student.getRegisteredDate(),
-                student.getParentName(),
-                student.getParentNumber()
-        );
+        try{
+            Student student = studentRepo.save(new Student(
+                    id,
+                    dto.getNameWithInitials(),
+                    dto.getFullName(),
+                    dto.getDob(),
+                    dto.getNic(),
+                    dto.getEmail(),
+                    dto.getAddress(),
+                    dto.getWhatsAppNumber(),
+                    dto.getRegisteredDate(),
+                    dto.getParentName(),
+                    dto.getParentNumber()
+            ));
+            return new ResponseStudentDto(
+                    student.getStudentId(),
+                    student.getNameWithInitials(),
+                    student.getFullName(),
+                    student.getDob(),
+                    student.getNic(),
+                    student.getEmail(),
+                    student.getAddress(),
+                    student.getWhatsAppNumber(),
+                    student.getRegisteredDate(),
+                    student.getParentName(),
+                    student.getParentNumber()
+            );
+        }catch (DataIntegrityViolationException ex){
+            throw new ResponseStatusException(HttpStatus.CONFLICT);
+        }
     }
 
     @Override

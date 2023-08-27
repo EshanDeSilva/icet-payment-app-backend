@@ -4,13 +4,17 @@ import com.icet.paymentapp.dto.request.RequestPaymentDto;
 import com.icet.paymentapp.dto.response.ResponsePaymentDto;
 import com.icet.paymentapp.dto.response.ResponseStudentDto;
 import com.icet.paymentapp.entity.Payment;
-import com.icet.paymentapp.entity.PaymentKey;
 import com.icet.paymentapp.entity.Student;
 import com.icet.paymentapp.repo.PaymentRepo;
 import com.icet.paymentapp.service.PaymentService;
 import com.icet.paymentapp.service.StudentService;
 import com.icet.paymentapp.util.IdManager;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.Optional;
 
 @Service
 public class PaymentServiceImpl implements PaymentService {
@@ -29,7 +33,8 @@ public class PaymentServiceImpl implements PaymentService {
         ResponseStudentDto responseStDto = studentService.findStudent(dto.getStudentId());
         Payment payment = paymentRepo.save(
                 new Payment(
-                        new PaymentKey(id),
+                        //new PaymentKey(id),
+                        id,
                         dto.getDate(),
                         dto.getAmount(),
                         dto.getPaymentType(),
@@ -50,7 +55,7 @@ public class PaymentServiceImpl implements PaymentService {
         );
 
         return new ResponsePaymentDto(
-                payment.getPaymentKey().getPaymentId(),
+                payment.getPaymentId(),
                 payment.getDate(),
                 payment.getAmount(),
                 payment.getPaymentType(),
@@ -66,6 +71,48 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public String getLastId() {
         Payment payment = paymentRepo.findTopByPaymentKeyOrderByPaymentKeyDesc();
-        return payment!=null ? payment.getPaymentKey().getPaymentId():"RCPT#00000000";
+        return payment!=null ? payment.getPaymentId():"RCPT-00000000";
+    }
+
+    @Override
+    public void deletePayment(String paymentId) {
+        try {
+            /*ResponsePaymentDto payment = findPayment(paymentId);
+            ResponseStudentDto student = studentService.findStudent(payment.getStudentId());
+            paymentRepo.delete(new Payment(
+                    paymentId,
+                    payment.getDate(),
+                    payment.getAmount(),
+                    payment.getPaymentType(),
+                    new Student(
+                            student.getStudentId(),
+                            student.getNameWithInitials(),
+                            student.getFullName(),
+                            student.getDob(),
+                            student.getNic(),
+                            student.getEmail(),
+                            student.getAddress(),
+                            student.getWhatsAppNumber(),
+                            student.getRegisteredDate(),
+                            student.getParentName(),
+                            student.getParentNumber()
+                    )
+            ));*/
+            paymentRepo.deleteById(paymentId);
+        }catch (EmptyResultDataAccessException ex){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @Override
+    public ResponsePaymentDto findPayment(String paymentId) {
+        Optional<Payment> payment = paymentRepo.findById(paymentId);
+        return new ResponsePaymentDto(
+                payment.get().getPaymentId(),
+                payment.get().getDate(),
+                payment.get().getAmount(),
+                payment.get().getPaymentType(),
+                payment.get().getStudent().getStudentId()
+        );
     }
 }

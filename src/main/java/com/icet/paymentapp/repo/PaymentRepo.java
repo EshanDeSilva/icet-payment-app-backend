@@ -11,4 +11,7 @@ import org.springframework.stereotype.Repository;
 public interface PaymentRepo extends JpaRepository<Payment,String> {
     @Query(value = "SELECT * FROM payment ORDER BY payment_id DESC LIMIT 1", nativeQuery = true)
     Payment findTopByPaymentKeyOrderByPaymentKeyDesc();
+
+//    @Query(value = "DELETE FROM payment WHERE payment_id=?",nativeQuery = true)
+//    void deletePaymentByPaymentId(String paymentId);
 }

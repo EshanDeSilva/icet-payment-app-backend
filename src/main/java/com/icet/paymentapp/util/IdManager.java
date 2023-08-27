@@ -14,8 +14,8 @@ public class IdManager {
     public String generatePaymentId(String studentId, String lastId) {
         //studentId = ICM105-000001
         String prefix = studentId.split("[-]")[0]; //ICM105
-        int num = Integer.parseInt(lastId.split("[#]")[1]);
+        int num = Integer.parseInt(lastId.split("[-]")[1]);
         num++;
-        return prefix+"RCPT#"+String.format("%08d",num);
+        return prefix+"RCPT-"+String.format("%08d",num);
     }
 }
