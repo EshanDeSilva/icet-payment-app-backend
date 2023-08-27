@@ -1,5 +1,6 @@
 package com.icet.paymentapp.service;
 
+import com.icet.paymentapp.dto.paginate.PaginatedResponsePaymentDto;
 import com.icet.paymentapp.dto.request.RequestPaymentDto;
 import com.icet.paymentapp.dto.response.ResponsePaymentDto;
 
@@ -9,4 +10,5 @@ public interface PaymentService {
     String getLastId();
     void deletePayment(String paymentId);
     ResponsePaymentDto findPayment(String paymentId);
+    PaginatedResponsePaymentDto findAllByStudentId(int page, int size, String studentId);
 }

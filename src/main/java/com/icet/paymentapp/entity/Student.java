@@ -26,7 +26,7 @@ public class Student {
     @Column(nullable = false)
     private Date dob;
 
-    @Column(unique = true,length = 100)
+    @Column(length = 100)
     private String nic;
 
     @Column(nullable = false, length = 150)

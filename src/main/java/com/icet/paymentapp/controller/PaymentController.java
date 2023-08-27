@@ -42,6 +42,14 @@ public class PaymentController {
         );
     }
 
+    @GetMapping(value = "/findStudent",params = {"id","page","size"})
+    public ResponseEntity<StandardResponseEntity> findAllByStudentId(String id,int page, int size){
+        return new ResponseEntity<>(
+                new StandardResponseEntity(200,"Student's Payments",paymentService.findAllByStudentId(page,size,id)),
+                HttpStatus.OK
+        );
+    }
+
     public String generatedId(String studentId){
         return paymentService.generateId(studentId,paymentService.getLastId());
     }

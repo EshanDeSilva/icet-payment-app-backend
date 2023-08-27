@@ -1,5 +1,6 @@
 package com.icet.paymentapp.service.impl;
 
+import com.icet.paymentapp.dto.paginate.PaginatedResponsePaymentDto;
 import com.icet.paymentapp.dto.request.RequestPaymentDto;
 import com.icet.paymentapp.dto.response.ResponsePaymentDto;
 import com.icet.paymentapp.dto.response.ResponseStudentDto;
@@ -10,10 +11,14 @@ import com.icet.paymentapp.service.PaymentService;
 import com.icet.paymentapp.service.StudentService;
 import com.icet.paymentapp.util.IdManager;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -93,5 +98,22 @@ public class PaymentServiceImpl implements PaymentService {
                 payment.get().getPaymentType(),
                 payment.get().getStudent().getStudentId()
         );
+    }
+
+    @Override
+    public PaginatedResponsePaymentDto findAllByStudentId(int page, int size, String studentId) {
+        Page<Payment> payments = paymentRepo.findPaymentsByStudentId(studentId, PageRequest.of(page,size));
+        long count = paymentRepo.findCountOfPaymentsByStudentId(studentId);
+        List<ResponsePaymentDto> list = new ArrayList<>();
+        for (Payment payment:payments) {
+            list.add(new ResponsePaymentDto(
+                    payment.getPaymentId(),
+                    payment.getDate(),
+                    payment.getAmount(),
+                    payment.getPaymentType(),
+                    payment.getStudent().getStudentId()
+            ));
+        }
+        return new PaginatedResponsePaymentDto(count,list);
     }
 }
