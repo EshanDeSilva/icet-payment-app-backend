@@ -35,7 +35,7 @@ public class PaymentController {
     }
 
     @GetMapping(value = "/find",params = "id")
-    public ResponseEntity<StandardResponseEntity> findPayment(String id){
+    public ResponseEntity<StandardResponseEntity> findPayment(@RequestParam String id){
         return new ResponseEntity<>(
                 new StandardResponseEntity(200,"Payment Data",paymentService.findPayment(id)),
                 HttpStatus.OK
@@ -43,9 +43,25 @@ public class PaymentController {
     }
 
     @GetMapping(value = "/findStudent",params = {"id","page","size"})
-    public ResponseEntity<StandardResponseEntity> findAllByStudentId(String id,int page, int size){
+    public ResponseEntity<StandardResponseEntity> findAllByStudentId(@RequestParam String id,@RequestParam int page,@RequestParam int size){
         return new ResponseEntity<>(
                 new StandardResponseEntity(200,"Student's Payments",paymentService.findAllByStudentId(page,size,id)),
+                HttpStatus.OK
+        );
+    }
+
+    @GetMapping(value = "/findAll",params = {"page","size"})
+    public ResponseEntity<StandardResponseEntity> findAllPayments(@RequestParam int page, @RequestParam int size){
+        return new ResponseEntity<>(
+                new StandardResponseEntity(200,"All Payments",paymentService.findAllPayments(page,size)),
+                HttpStatus.OK
+        );
+    }
+
+    @GetMapping(value = "/search",params = {"text","page","size"})
+    public ResponseEntity<StandardResponseEntity> searchPayment(@RequestParam String text, @RequestParam int page, @RequestParam int size){
+        return new ResponseEntity<>(
+                new StandardResponseEntity(200,"Searched Payment",paymentService.searchPayment(page,size,text)),
                 HttpStatus.OK
         );
     }

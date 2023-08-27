@@ -11,4 +11,6 @@ public interface PaymentService {
     void deletePayment(String paymentId);
     ResponsePaymentDto findPayment(String paymentId);
     PaginatedResponsePaymentDto findAllByStudentId(int page, int size, String studentId);
+    PaginatedResponsePaymentDto findAllPayments(int page, int size);
+    PaginatedResponsePaymentDto searchPayment(int page, int size, String text);
 }

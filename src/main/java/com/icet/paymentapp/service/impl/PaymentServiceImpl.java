@@ -19,6 +19,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -38,7 +39,6 @@ public class PaymentServiceImpl implements PaymentService {
         ResponseStudentDto responseStDto = studentService.findStudent(dto.getStudentId());
         Payment payment = paymentRepo.save(
                 new Payment(
-                        //new PaymentKey(id),
                         id,
                         dto.getDate(),
                         dto.getAmount(),
@@ -90,20 +90,70 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public ResponsePaymentDto findPayment(String paymentId) {
-        Optional<Payment> payment = paymentRepo.findById(paymentId);
-        return new ResponsePaymentDto(
-                payment.get().getPaymentId(),
-                payment.get().getDate(),
-                payment.get().getAmount(),
-                payment.get().getPaymentType(),
-                payment.get().getStudent().getStudentId()
-        );
+        try {
+            Optional<Payment> payment = paymentRepo.findById(paymentId);
+            if (payment.isEmpty()){
+                throw new ResponseStatusException(HttpStatus.NO_CONTENT);
+            }
+            return new ResponsePaymentDto(
+                    payment.get().getPaymentId(),
+                    payment.get().getDate(),
+                    payment.get().getAmount(),
+                    payment.get().getPaymentType(),
+                    payment.get().getStudent().getStudentId()
+            );
+        }catch (NoSuchElementException ex){
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT);
+        }
     }
 
     @Override
     public PaginatedResponsePaymentDto findAllByStudentId(int page, int size, String studentId) {
         Page<Payment> payments = paymentRepo.findPaymentsByStudentId(studentId, PageRequest.of(page,size));
         long count = paymentRepo.findCountOfPaymentsByStudentId(studentId);
+        if (count<=0){
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT);
+        }
+        List<ResponsePaymentDto> list = new ArrayList<>();
+        for (Payment payment:payments) {
+            list.add(new ResponsePaymentDto(
+                    payment.getPaymentId(),
+                    payment.getDate(),
+                    payment.getAmount(),
+                    payment.getPaymentType(),
+                    payment.getStudent().getStudentId()
+            ));
+        }
+        return new PaginatedResponsePaymentDto(count,list);
+    }
+
+    @Override
+    public PaginatedResponsePaymentDto findAllPayments(int page, int size) {
+        Page<Payment> payments = paymentRepo.findAll(PageRequest.of(page,size));
+        long count = paymentRepo.count();
+        if (count<=0){
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT);
+        }
+        List<ResponsePaymentDto> list = new ArrayList<>();
+        for (Payment payment:payments) {
+            list.add(new ResponsePaymentDto(
+                    payment.getPaymentId(),
+                    payment.getDate(),
+                    payment.getAmount(),
+                    payment.getPaymentType(),
+                    payment.getStudent().getStudentId()
+            ));
+        }
+        return new PaginatedResponsePaymentDto(count,list);
+    }
+
+    @Override
+    public PaginatedResponsePaymentDto searchPayment(int page, int size, String text) {
+        Page<Payment> payments = paymentRepo.searchPayment(text, PageRequest.of(page,size));
+        long count = paymentRepo.searchPaymentCount(text);
+        if (count<=0){
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT);
+        }
         List<ResponsePaymentDto> list = new ArrayList<>();
         for (Payment payment:payments) {
             list.add(new ResponsePaymentDto(

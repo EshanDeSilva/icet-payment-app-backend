@@ -26,7 +26,7 @@ public class StudentController {
     }
 
     @GetMapping(value = "find",params = "id") //api/v1/students/ICM1060001
-    public ResponseEntity<StandardResponseEntity> findStudent(@PathVariable String id){
+    public ResponseEntity<StandardResponseEntity> findStudent(@RequestParam String id){
         return new ResponseEntity<>(
                 new StandardResponseEntity(200, "Student Data", studentService.findStudent(id)),
                 HttpStatus.OK);
@@ -62,7 +62,7 @@ public class StudentController {
     }
 
     @GetMapping(value = "/getId",params = {"course","batch"})
-    public ResponseEntity<StandardResponseEntity> generatedId(String course,String batch){
+    public ResponseEntity<StandardResponseEntity> generatedId(@RequestParam String course,@RequestParam String batch){
         return new ResponseEntity<>(
                 new StandardResponseEntity(200, "Student ID", studentService.generateId(course+batch,studentService.getLastId(course+batch))),
                 HttpStatus.OK);
