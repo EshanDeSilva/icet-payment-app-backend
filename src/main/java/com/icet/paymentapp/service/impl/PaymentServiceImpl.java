@@ -77,27 +77,6 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public void deletePayment(String paymentId) {
         try {
-            /*ResponsePaymentDto payment = findPayment(paymentId);
-            ResponseStudentDto student = studentService.findStudent(payment.getStudentId());
-            paymentRepo.delete(new Payment(
-                    paymentId,
-                    payment.getDate(),
-                    payment.getAmount(),
-                    payment.getPaymentType(),
-                    new Student(
-                            student.getStudentId(),
-                            student.getNameWithInitials(),
-                            student.getFullName(),
-                            student.getDob(),
-                            student.getNic(),
-                            student.getEmail(),
-                            student.getAddress(),
-                            student.getWhatsAppNumber(),
-                            student.getRegisteredDate(),
-                            student.getParentName(),
-                            student.getParentNumber()
-                    )
-            ));*/
             paymentRepo.deleteById(paymentId);
         }catch (EmptyResultDataAccessException ex){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
