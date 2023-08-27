@@ -8,6 +8,5 @@ public interface PaymentService {
     String generateId(String studentId, String lastId);
     String getLastId();
     void deletePayment(String paymentId);
-
     ResponsePaymentDto findPayment(String paymentId);
 }
