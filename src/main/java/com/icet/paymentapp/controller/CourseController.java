@@ -5,10 +5,7 @@ import com.icet.paymentapp.service.CourseService;
 import com.icet.paymentapp.util.StandardResponseEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/v1/courses")
@@ -28,4 +25,20 @@ public class CourseController {
         );
     }
 
+    @DeleteMapping(value = "/delete",params = "courseId")
+    public ResponseEntity<StandardResponseEntity> deleteCourse(@RequestParam String courseId){
+        courseService.deleteCourse(courseId);
+        return new ResponseEntity<>(
+                new StandardResponseEntity(202,"Course deleted",null),
+                HttpStatus.ACCEPTED
+        );
+    }
+
+    @PutMapping(value = "/update",params = {"courseId"})
+    public ResponseEntity<StandardResponseEntity> updateCourse(@RequestParam String courseId, @RequestBody RequestCourseDto dto){
+        return new ResponseEntity<>(
+                new StandardResponseEntity(201,"Course updated",courseService.updateCourse(courseId,dto)),
+                HttpStatus.CREATED
+        );
+    }
 }

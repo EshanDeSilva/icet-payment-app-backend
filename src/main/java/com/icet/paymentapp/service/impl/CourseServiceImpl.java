@@ -6,6 +6,7 @@ import com.icet.paymentapp.entity.Course;
 import com.icet.paymentapp.repo.CourseRepo;
 import com.icet.paymentapp.service.CourseService;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -56,5 +57,39 @@ public class CourseServiceImpl implements CourseService {
                 course.get().getStartDate(),
                 course.get().getCourseFee()
         );
+    }
+
+    @Override
+    public void deleteCourse(String courseId) {
+        try {
+            courseRepo.deleteById(courseId);
+        }catch (EmptyResultDataAccessException ex){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @Override
+    public ResponseCourseDto updateCourse(String courseId, RequestCourseDto dto) {
+        Optional<Course> optionalCourse = courseRepo.findById(courseId);
+
+        if (optionalCourse.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+        optionalCourse.get().setCourse(dto.getCourse());
+        optionalCourse.get().setBatch(dto.getBatch());
+        optionalCourse.get().setCourseFee(dto.getCourseFee());
+        optionalCourse.get().setStartDate(dto.getStartDate());
+
+        Course course = courseRepo.save(optionalCourse.get());
+
+        return new ResponseCourseDto(
+                course.getCourseId(),
+                course.getCourse(),
+                course.getBatch(),
+                course.getStartDate(),
+                course.getCourseFee()
+        );
+
     }
 }

@@ -6,4 +6,6 @@ import com.icet.paymentapp.dto.response.ResponseCourseDto;
 public interface CourseService {
     ResponseCourseDto saveCourse(RequestCourseDto dto);
     ResponseCourseDto findCourse(String courseId);
+    void deleteCourse(String courseId);
+    ResponseCourseDto updateCourse(String courseId, RequestCourseDto dto);
 }
