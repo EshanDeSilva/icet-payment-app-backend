@@ -1,21 +1,22 @@
-package com.icet.paymentapp.dto.response;
+package com.icet.paymentapp.entity;
 
 import com.icet.paymentapp.entity.enums.PaymentType;
 import lombok.*;
+import net.sf.jasperreports.engine.JasperPrint;
 
 import java.util.Date;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
 @ToString
-public class ResponsePaymentDto {
+public class Report extends JasperPrint {
     private String paymentId;
+    private String fullName;
+    private String nic;
     private Date date;
-    private double Amount;
-    private String courseAndBatch;
+    private String course;
     private PaymentType paymentType;
-    private String studentId;
+    private double amount;
 }

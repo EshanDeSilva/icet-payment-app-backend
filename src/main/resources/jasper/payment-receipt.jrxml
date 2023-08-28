@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.1.final using JasperReports Library version 6.20.1-7584acb244139816654f64e2fd57a00d3e31921e  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="payment-receipt" pageWidth="595" pageHeight="420" orientation="Landscape" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="35f13b83-8c1a-4a48-9d51-64e2a1268e8b">
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="payment_id" class="java.lang.String" nestedType="java.lang.String" evaluationTime="Early"/>
+	<parameter name="full_name" class="java.lang.String" nestedType="java.lang.String" evaluationTime="Early"/>
+	<parameter name="nic" class="java.lang.String" nestedType="java.lang.String" evaluationTime="Early"/>
+	<parameter name="date" class="java.util.Date" nestedType="java.util.Date" evaluationTime="Early"/>
+	<parameter name="course" class="java.lang.String" nestedType="java.lang.String" evaluationTime="Early"/>
+	<parameter name="payment_type" class="java.lang.String" nestedType="java.lang.String" evaluationTime="Early"/>
+	<parameter name="amount" class="java.lang.Double" nestedType="java.lang.Double" evaluationTime="Early"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="62" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="90" height="33" uuid="e7cfda98-2dab-4b64-a9eb-fc0f046cfa6e"/>
+				<imageExpression><![CDATA["src/main/resources/img/logo.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="186" y="30" width="180" height="20" uuid="faeaf5a5-f444-4e50-9abf-78c7059412e7"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[No 223/A 1/2, Galle Rd, Panadura]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="83" y="10" width="387" height="28" uuid="74a35134-461b-49bb-a165-1f310d4a4f5e">
+					<property name="net.sf.jasperreports.style.isPdfEmbedded" value="true"/>
+					<property name="net.sf.jasperreports.style.pdfFontName"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Institute of Computer Engineering Technology (PVT) LTD]]></text>
+			</staticText>
+			<rectangle radius="2">
+				<reportElement x="4" y="60" width="547" height="1" uuid="10f51226-dd08-47fe-8ae7-bed8275cdcdb"/>
+			</rectangle>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="83" splitType="Stretch">
+			<staticText>
+				<reportElement x="16" y="30" width="90" height="20" uuid="708f3ad7-ecc3-4e49-8827-69aed350b532"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Bahnschrift" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Receipt No	:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="16" y="50" width="90" height="20" uuid="b15fe273-88a3-4528-9f89-7a5a4c21afea"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Bahnschrift" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Student Name 	:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="367" y="30" width="73" height="20" uuid="d48a0e51-f0b3-4fec-90aa-494225c8c8ca"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Bahnschrift" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Receipt Date :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="367" y="50" width="73" height="20" uuid="02a4f251-cb7a-49dd-80cf-60b7071adc68"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Bahnschrift" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NIC 	         :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="106" y="31" width="150" height="18" uuid="51dd15ae-8c88-412f-9465-3d9a41c03f4c"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{payment_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="106" y="50" width="242" height="20" uuid="87908757-1e87-4868-953c-e240da48a899"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{full_name}]]></textFieldExpression>
+			</textField>
+			<textField pattern="MMMM d, yyyy">
+				<reportElement x="440" y="31" width="110" height="18" uuid="069f5f5b-6c9c-4be1-8365-7cb063dea44c"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="440" y="50" width="110" height="20" uuid="304c79e3-041d-4b34-95eb-b8f664840c51"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nic}]]></textFieldExpression>
+			</textField>
+			<rectangle radius="2">
+				<reportElement x="3" y="80" width="547" height="1" uuid="27441c48-76ed-40cf-bd40-1572bac75eb2"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="16" y="0" width="199" height="30" uuid="553e466b-8d1c-44bf-a04c-66daa02a1e99">
+					<property name="net.sf.jasperreports.style.isPdfEmbedded" value="true"/>
+					<property name="net.sf.jasperreports.style.pdfFontName"/>
+					<property name="net.sf.jasperreports.style.pdfEncoding" value=""/>
+				</reportElement>
+				<textElement markup="none">
+					<font fontName="SansSerif" size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[OFFICIAL RECEIPT]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="1" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="145" splitType="Stretch">
+			<rectangle>
+				<reportElement x="30" y="2" width="160" height="70" uuid="9ef16d10-bb73-4db5-b872-345ddc05207f"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="190" y="2" width="177" height="70" uuid="5c20d627-4684-4a5d-a1e5-28e9992503ad"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="367" y="2" width="143" height="70" uuid="c9a2c268-d739-4990-884e-c1570ceca147"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="30" y="2" width="160" height="20" uuid="b5733c8e-4d14-4087-914a-78f4b2629ede"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="57" y="7" width="139" height="30" uuid="73a8a092-8164-4632-a5fa-89273fcd973d">
+					<property name="net.sf.jasperreports.style.isPdfEmbedded" value="true"/>
+					<property name="net.sf.jasperreports.style.pdfFontName"/>
+				</reportElement>
+				<textElement markup="none">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[COURSE ID - BATCH NO]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="190" y="2" width="177" height="20" uuid="6781c1e9-e1e0-4176-ace6-cdf13e207015"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="237" y="7" width="89" height="30" uuid="c1bd83dd-76ef-4094-9df3-deebda0c8945">
+					<property name="net.sf.jasperreports.style.isPdfEmbedded" value="true"/>
+					<property name="net.sf.jasperreports.style.pdfFontName"/>
+				</reportElement>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[DESCRIPTION]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="367" y="2" width="143" height="20" uuid="675495f6-45aa-4e2c-a5af-7e959ebd3658"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="416" y="7" width="89" height="30" uuid="02ad1d92-8f88-47b8-a79e-50cec2b1def4">
+					<property name="net.sf.jasperreports.style.isPdfEmbedded" value="true"/>
+					<property name="net.sf.jasperreports.style.pdfFontName"/>
+				</reportElement>
+				<textElement markup="none">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[AMOUNT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="31" y="97" width="270" height="19" uuid="61cdccc1-9724-469f-b658-f70fecd27b00"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[* No Payments can be transferred or refund.]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="30" y="72" width="337" height="18" uuid="f8720ece-22d9-4d35-a9bc-ab64a1ed195f"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="367" y="72" width="143" height="18" uuid="cb9730ab-d751-4fd2-85fd-171916a41dca"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="30" y="116" width="346" height="22" uuid="06a2baf5-c497-4a98-914c-6145416c2687">
+					<property name="net.sf.jasperreports.style.isPdfEmbedded" value="true"/>
+					<property name="net.sf.jasperreports.style.pdfFontName"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Bahnschrift"/>
+				</textElement>
+				<text><![CDATA[NOTE : This is a computer generated receipt thus no signature required.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="86" y="76" width="139" height="30" uuid="8771fa1b-b992-418c-b6bb-3e2ef054b580">
+					<property name="net.sf.jasperreports.style.isPdfEmbedded" value="true"/>
+					<property name="net.sf.jasperreports.style.pdfFontName"/>
+				</reportElement>
+				<textElement markup="none">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="57" y="32" width="100" height="30" uuid="a92e26ff-c6e7-4d59-97c1-1e76ce16081b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{course}]]></textFieldExpression>
+			</textField>
+			<rectangle radius="2">
+				<reportElement x="0" y="142" width="547" height="1" uuid="b0adb7ab-26fb-4f2e-ab83-fffad411cb43"/>
+			</rectangle>
+			<textField>
+				<reportElement x="214" y="32" width="129" height="30" uuid="c97a8254-87f7-4c75-a687-ca8357664d55"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{payment_type}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="389" y="32" width="100" height="30" uuid="dfd47b4a-4ade-4180-bf2b-d291a66c8faf">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ea864a61-8b5b-40b6-98ea-d694de6a0aab"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{amount}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="389" y="66" width="100" height="30" uuid="f9ea5095-9431-479d-897d-046b4c9eb877">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ea864a61-8b5b-40b6-98ea-d694de6a0aab"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{amount}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="60" splitType="Stretch">
+			<staticText>
+				<reportElement x="470" y="20" width="74" height="33" forecolor="#F22F2C" uuid="cc47ddc4-61bb-48b1-9f93-17a5d20696b1"/>
+				<box>
+					<pen lineColor="#F71F1B"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Castellar" size="25" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[PAID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="66" y="35" width="100" height="20" forecolor="#0231B3" uuid="46f2e177-18a6-48d2-a9aa-88f931f2f2ca"/>
+				<text><![CDATA[www.icet.lk]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="66" y="23" width="100" height="20" forecolor="#0231B3" uuid="315dc1ff-3187-473a-a55c-d35953473eaf"/>
+				<text><![CDATA[info@icet.lk]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="33" y="0" width="184" height="60" forecolor="#000000" backcolor="#FC0703" uuid="0c8d51b4-c651-407d-8203-402d26cf6105"/>
+				<text><![CDATA[223A 1/2 Galle Road, Panadura.
+Tel : 0705 805 805 / 038 22 22 800
+Email: 
+Web: ]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="2" splitType="Stretch"/>
+	</summary>
+</jasperReport>

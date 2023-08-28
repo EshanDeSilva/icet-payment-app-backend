@@ -18,8 +18,10 @@ public class Payment {
     private PaymentKey paymentKey;*/
     @Id
     private String paymentId;
+    private String courseAndBatch;
     private Date date;
     private double Amount;
+    @Enumerated(EnumType.STRING)
     private PaymentType paymentType;
 
     @ManyToOne(fetch = FetchType.LAZY)

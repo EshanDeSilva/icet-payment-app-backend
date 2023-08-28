@@ -40,6 +40,7 @@ public class PaymentServiceImpl implements PaymentService {
         Payment payment = paymentRepo.save(
                 new Payment(
                         id,
+                        dto.getCourseBatch(),
                         dto.getDate(),
                         dto.getAmount(),
                         dto.getPaymentType(),
@@ -63,6 +64,7 @@ public class PaymentServiceImpl implements PaymentService {
                 payment.getPaymentId(),
                 payment.getDate(),
                 payment.getAmount(),
+                payment.getCourseAndBatch(),
                 payment.getPaymentType(),
                 payment.getStudent().getStudentId()
         );
@@ -99,6 +101,7 @@ public class PaymentServiceImpl implements PaymentService {
                     payment.get().getPaymentId(),
                     payment.get().getDate(),
                     payment.get().getAmount(),
+                    payment.get().getCourseAndBatch(),
                     payment.get().getPaymentType(),
                     payment.get().getStudent().getStudentId()
             );
@@ -120,6 +123,7 @@ public class PaymentServiceImpl implements PaymentService {
                     payment.getPaymentId(),
                     payment.getDate(),
                     payment.getAmount(),
+                    payment.getCourseAndBatch(),
                     payment.getPaymentType(),
                     payment.getStudent().getStudentId()
             ));
@@ -140,6 +144,7 @@ public class PaymentServiceImpl implements PaymentService {
                     payment.getPaymentId(),
                     payment.getDate(),
                     payment.getAmount(),
+                    payment.getCourseAndBatch(),
                     payment.getPaymentType(),
                     payment.getStudent().getStudentId()
             ));
@@ -160,6 +165,7 @@ public class PaymentServiceImpl implements PaymentService {
                     payment.getPaymentId(),
                     payment.getDate(),
                     payment.getAmount(),
+                    payment.getCourseAndBatch(),
                     payment.getPaymentType(),
                     payment.getStudent().getStudentId()
             ));
