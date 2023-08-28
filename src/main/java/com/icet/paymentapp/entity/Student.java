@@ -12,7 +12,6 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-@Table(name = "student")
 public class Student {
     @Id
     private String studentId;
@@ -49,6 +48,10 @@ public class Student {
 
     @OneToMany(mappedBy = "student",cascade = CascadeType.ALL)
     private List<Payment> payments = new ArrayList<>();
+
+
+    @OneToMany(mappedBy = "student")
+    List<StudentDetails> courses;
 
     public Student(String studentId, String nameWithInitials, String fullName, Date dob, String nic, String email, String address, String whatsAppNumber, Date registeredDate, String parentName, String parentNumber) {
         this.studentId = studentId;

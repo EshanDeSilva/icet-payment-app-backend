@@ -2,15 +2,7 @@ package com.icet.paymentapp.service.impl;
 
 import com.icet.paymentapp.entity.Report;
 import com.icet.paymentapp.service.ReportService;
-import com.icet.paymentapp.util.StandardResponseEntity;
 import net.sf.jasperreports.engine.*;
-import net.sf.jasperreports.engine.design.JasperDesign;
-import net.sf.jasperreports.engine.export.HtmlExporter;
-import net.sf.jasperreports.engine.xml.JRXmlLoader;
-import net.sf.jasperreports.export.SimpleExporterInput;
-import net.sf.jasperreports.export.SimpleHtmlExporterOutput;
-import net.sf.jasperreports.view.JasperDesignViewer;
-import net.sf.jasperreports.view.JasperViewer;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,13 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.server.ResponseStatusException;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.net.ConnectException;
-import java.nio.charset.StandardCharsets;
-import java.sql.Connection;
-import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 

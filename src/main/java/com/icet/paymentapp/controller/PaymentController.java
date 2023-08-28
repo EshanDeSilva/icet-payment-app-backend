@@ -27,8 +27,9 @@ public class PaymentController {
 
     @PostMapping("/save")
     public ResponseEntity<StandardResponseEntity> savePayment(@RequestBody RequestPaymentDto dto){
+        ResponsePaymentDto responsePaymentDto = paymentService.savePayment(dto, generatedId(dto.getStudentId()));
         return new ResponseEntity<>(
-                new StandardResponseEntity(201,"Payment saved", paymentService.savePayment(dto, generatedId(dto.getStudentId()))),
+                new StandardResponseEntity(201,"Payment saved", responsePaymentDto),
                 HttpStatus.CREATED
         );
     }
@@ -75,7 +76,7 @@ public class PaymentController {
     }
 
     @GetMapping(value = "/report",params = "payment_id")
-    public ResponseEntity<byte[]> generateReport(@RequestParam String payment_id){
+    public ResponseEntity<byte[]> generateReceipt(@RequestParam String payment_id){
         ResponsePaymentDto responsePaymentDto = paymentService.findPayment(payment_id);
 
         return reportService.generateReport(new Report(
