@@ -1,6 +1,7 @@
 package com.icet.paymentapp.controller;
 
 import com.icet.paymentapp.dto.request.RequestCourseDto;
+import com.icet.paymentapp.dto.paginate.PaginatedResponseCourseDto;
 import com.icet.paymentapp.service.CourseService;
 import com.icet.paymentapp.util.StandardResponseEntity;
 import org.springframework.http.HttpStatus;
@@ -39,6 +40,14 @@ public class CourseController {
         return new ResponseEntity<>(
                 new StandardResponseEntity(201,"Course updated",courseService.updateCourse(courseId,dto)),
                 HttpStatus.CREATED
+        );
+    }
+
+    @GetMapping(value = "/search",params = {"text","page","size"})
+    public ResponseEntity<StandardResponseEntity> searchCourse(@RequestParam String text,@RequestParam int page, @RequestParam int size){
+        return new ResponseEntity<>(
+                new StandardResponseEntity(200,"searched course",courseService.searchCourse(text,page,size)),
+                HttpStatus.OK
         );
     }
 }

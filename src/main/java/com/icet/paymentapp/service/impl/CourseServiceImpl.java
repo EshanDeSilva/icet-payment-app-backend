@@ -1,5 +1,6 @@
 package com.icet.paymentapp.service.impl;
 
+import com.icet.paymentapp.dto.paginate.PaginatedResponseCourseDto;
 import com.icet.paymentapp.dto.request.RequestCourseDto;
 import com.icet.paymentapp.dto.response.ResponseCourseDto;
 import com.icet.paymentapp.entity.Course;
@@ -7,10 +8,14 @@ import com.icet.paymentapp.repo.CourseRepo;
 import com.icet.paymentapp.service.CourseService;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -91,5 +96,32 @@ public class CourseServiceImpl implements CourseService {
                 course.getCourseFee()
         );
 
+    }
+
+    @Override
+    public PaginatedResponseCourseDto searchCourse(String text, int page, int size) {
+        Page<Course> courses = courseRepo.searchCourse(text, PageRequest.of(page, size));
+        long count = courseRepo.count();
+
+        if (count<=0){
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT);
+        }
+        if (courses.stream().count()<=0){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+        List<ResponseCourseDto> list = new ArrayList<>();
+
+        for (Course course:courses) {
+            list.add(new ResponseCourseDto(
+                    course.getCourseId(),
+                    course.getCourse(),
+                    course.getBatch(),
+                    course.getStartDate(),
+                    course.getCourseFee()
+            ));
+        }
+
+        return new PaginatedResponseCourseDto(count,list);
     }
 }
