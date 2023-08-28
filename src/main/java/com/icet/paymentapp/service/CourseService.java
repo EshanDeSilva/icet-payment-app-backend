@@ -10,4 +10,5 @@ public interface CourseService {
     void deleteCourse(String courseId);
     ResponseCourseDto updateCourse(String courseId, RequestCourseDto dto);
     PaginatedResponseCourseDto searchCourse(String text, int page, int size);
+    PaginatedResponseCourseDto findAllCourses(int page, int size);
 }

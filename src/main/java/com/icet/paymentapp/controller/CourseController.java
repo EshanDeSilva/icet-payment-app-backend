@@ -50,4 +50,12 @@ public class CourseController {
                 HttpStatus.OK
         );
     }
+
+    @GetMapping(value = "/findAll",params = {"page","size"})
+    public ResponseEntity<StandardResponseEntity> findAllCourses(@RequestParam int page, @RequestParam int size){
+        return new ResponseEntity<>(
+                new StandardResponseEntity(200,"all courses",courseService.findAllCourses(page,size)),
+                HttpStatus.OK
+        );
+    }
 }

@@ -124,4 +124,28 @@ public class CourseServiceImpl implements CourseService {
 
         return new PaginatedResponseCourseDto(count,list);
     }
+
+    @Override
+    public PaginatedResponseCourseDto findAllCourses(int page, int size) {
+        Page<Course> courses = courseRepo.findAll(PageRequest.of(page,size));
+        long count = courseRepo.count();
+
+        if (count<=0){
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT);
+        }
+
+        List<ResponseCourseDto> list = new ArrayList<>();
+
+        for (Course course:courses) {
+            list.add(new ResponseCourseDto(
+                    course.getCourseId(),
+                    course.getCourse(),
+                    course.getBatch(),
+                    course.getStartDate(),
+                    course.getCourseFee()
+            ));
+        }
+
+        return new PaginatedResponseCourseDto(count,list);
+    }
 }
