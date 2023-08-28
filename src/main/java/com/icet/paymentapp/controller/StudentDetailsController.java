@@ -38,8 +38,12 @@ public class StudentDetailsController {
         );
     }
 
-    public ResponseEntity<StandardResponseEntity> findAllStudentDetails(){
-        return null;
+    @GetMapping(value = "/findAll",params = {"page","size"})
+    public ResponseEntity<StandardResponseEntity> findAllStudentDetails(@RequestParam int page, @RequestParam int size){
+        return new ResponseEntity<>(
+                new StandardResponseEntity(200,"all student details",studentDetailsService.findAllDetails(page,size)),
+                HttpStatus.OK
+        );
     }
 
     public ResponseEntity<StandardResponseEntity> searchStudentDetails(){
