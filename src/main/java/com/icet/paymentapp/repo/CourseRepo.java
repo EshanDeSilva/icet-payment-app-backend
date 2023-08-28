@@ -14,4 +14,7 @@ public interface CourseRepo extends JpaRepository<Course,String> {
 
     @Query(value = "SELECT * FROM course WHERE course_id LIKE %?1%",nativeQuery = true)
     Page<Course> searchCourse(String text,PageRequest pageRequest);
+
+    @Query(value = "SELECT COUNT(course_id) FROM course WHERE course_id LIKE %?1%",nativeQuery = true)
+    long searchCourseCount(String text);
 }

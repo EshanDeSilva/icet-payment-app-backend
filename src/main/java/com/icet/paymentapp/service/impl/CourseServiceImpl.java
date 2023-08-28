@@ -101,12 +101,12 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public PaginatedResponseCourseDto searchCourse(String text, int page, int size) {
         Page<Course> courses = courseRepo.searchCourse(text, PageRequest.of(page, size));
-        long count = courseRepo.count();
+        long count = courseRepo.searchCourseCount(text);
 
-        if (count<=0){
+        if (courseRepo.count()<=0){
             throw new ResponseStatusException(HttpStatus.NO_CONTENT);
         }
-        if (courses.stream().count()<=0){
+        if (count<=0){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 

@@ -46,7 +46,11 @@ public class StudentDetailsController {
         );
     }
 
-    public ResponseEntity<StandardResponseEntity> searchStudentDetails(){
-        return null;
+    @GetMapping(value = "/search",params = {"text","page","size"})
+    public ResponseEntity<StandardResponseEntity> searchStudentDetails(@RequestParam String text, @RequestParam int page, @RequestParam int size){
+        return new ResponseEntity<>(
+                new StandardResponseEntity(200,"searched detail",studentDetailsService.searchDetails(text,page,size)),
+                HttpStatus.OK
+        );
     }
 }

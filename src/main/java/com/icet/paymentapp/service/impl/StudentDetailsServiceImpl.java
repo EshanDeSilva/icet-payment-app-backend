@@ -82,4 +82,26 @@ public class StudentDetailsServiceImpl implements StudentDetailsService {
 
         return new PaginatedResponseStudentDetailsDto(count,list);
     }
+
+    @Override
+    public PaginatedResponseStudentDetailsDto searchDetails(String text, int page, int size) {
+        Page<StudentDetails> studentDetails = studentDetailsRepo.searchDetails(text, PageRequest.of(page, size));
+        if (studentDetailsRepo.count()<=0){
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT);
+        }
+        long count = studentDetailsRepo.searchDetailsCount(text);
+        if (count<=0){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+        List<ResponseStudentDetailsDto> list = new ArrayList<>();
+
+        for (StudentDetails details:studentDetails) {
+            list.add(new ResponseStudentDetailsDto(
+                    details.getStudent().getStudentId(),
+                    details.getCourse().getCourseId()
+            ));
+        }
+        return new PaginatedResponseStudentDetailsDto(count,list);
+    }
 }

@@ -8,4 +8,5 @@ public interface StudentDetailsService {
     ResponseStudentDetailsDto registerStudentToCourse(StudentDetailsKey studentDetailsKey);
     void deleteStudentDetail(String studentId, String courseId);
     PaginatedResponseStudentDetailsDto findAllDetails(int page, int size);
+    PaginatedResponseStudentDetailsDto searchDetails(String text, int page, int size);
 }
