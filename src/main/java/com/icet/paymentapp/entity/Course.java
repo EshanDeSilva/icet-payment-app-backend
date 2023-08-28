@@ -29,7 +29,7 @@ public class Course {
     private double courseFee;
 
 
-    @OneToMany(mappedBy = "course")
+    @OneToMany(mappedBy = "course",cascade = CascadeType.ALL)
     List<StudentDetails> students;
 
     public Course(String courseId, String course, String batch, Date startDate, double courseFee) {

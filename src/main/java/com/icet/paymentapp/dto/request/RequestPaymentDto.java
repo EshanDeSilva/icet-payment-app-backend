@@ -12,7 +12,7 @@ import java.util.Date;
 @Getter
 @ToString
 public class RequestPaymentDto {
-    private String courseBatch;
+    private String courseId;
     private Date date;
     private double Amount;
     private PaymentType paymentType;

@@ -50,7 +50,7 @@ public class Student {
     private List<Payment> payments = new ArrayList<>();
 
 
-    @OneToMany(mappedBy = "student")
+    @OneToMany(mappedBy = "student",cascade = CascadeType.ALL)
     List<StudentDetails> courses;
 
     public Student(String studentId, String nameWithInitials, String fullName, Date dob, String nic, String email, String address, String whatsAppNumber, Date registeredDate, String parentName, String parentNumber) {

@@ -14,12 +14,12 @@ public class StudentDetails {
     @EmbeddedId
     private StudentDetailsKey key;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("student_id")
     @JoinColumn(name = "student_id")
     Student student;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("course_id")
     @JoinColumn(name = "course_id")
     Course course;

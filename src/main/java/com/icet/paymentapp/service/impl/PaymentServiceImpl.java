@@ -40,7 +40,7 @@ public class PaymentServiceImpl implements PaymentService {
         Payment payment = paymentRepo.save(
                 new Payment(
                         id,
-                        dto.getCourseBatch(),
+                        dto.getCourseId(),
                         dto.getDate(),
                         dto.getAmount(),
                         dto.getPaymentType(),
